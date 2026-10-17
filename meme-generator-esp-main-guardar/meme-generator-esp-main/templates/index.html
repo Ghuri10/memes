@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Generador de memes</title>
+</head>
+<body>
+  <header class="header">
+    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" width="50" height="50">
+    <ul class="main-list">
+      <li class="list__item"><a href="{{ url_for('index') }}">Página principal</a></li>
+      <li class="list__item"><a href="#memeBlock">Vista previa</a></li>
+    </ul>
+  </header>
+  <main>
+    <div class="form-block">
+      <h1>¡Genera tu meme!</h1>
+      <form method="POST" action="{{ url_for('index') }}">
+        <ul class="form-list">
+          <li class="form-list_item">
+            <label for="image-selector">Selecciona un meme</label>
+            <select name="image-selector" id="image-selector">
+              <option value="logo.svg" {% if selected_image == 'logo.svg' %}selected{% endif %}>Selecciona un meme</option>
+              <option value="meme_1.jpg" {% if selected_image == 'meme_1.jpg' %}selected{% endif %}>Chica desastre</option>
+              <option value="meme_2.jpg" {% if selected_image == 'meme_2.jpg' %}selected{% endif %}>Dos botones</option>
+              <option value="meme_3.jpg" {% if selected_image == 'meme_3.jpg' %}selected{% endif %}>Nunca preguntes</option>
+              <option value="meme_4.jpg" {% if selected_image == 'meme_4.jpg' %}selected{% endif %}>Mister Increíble</option>
+              <option value="meme_5.jpg" {% if selected_image == 'meme_5.jpg' %}selected{% endif %}>Sí, no</option>
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="text_top">Escriba aquí el texto superior</label>
+            <input class="input_text" id="text_top" type="text" placeholder="Texto superior" name="text_top" value="{{ text_top }}">
+          </li>
+          <li class="form-list_item">
+            <label for="text_bottom">Introduzca aquí el texto inferior</label>
+            <input class="input_text" id="text_bottom" type="text" placeholder="Texto inferior" name="text_bottom" value="{{ text_bottom }}">
+          </li>
+          <li class="form-list_item">
+            <label for="color-selector">Color del texto</label>
+            <select name="color-selector" id="color-selector">
+              <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Blanco</option>
+              <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Negro</option>
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="text_top_y">Posición del texto superior (Y, %)</label>
+            <input class="input_text" id="text_top_y" type="number" min="0" max="100" name="text_top_y" value="{{ text_top_y }}">
+          </li>
+          <li class="form-list_item">
+            <label for="text_bottom_y">Posición del texto inferior (Y, %)</label>
+            <input class="input_text" id="text_bottom_y" type="number" min="0" max="100" name="text_bottom_y" value="{{ text_bottom_y }}">
+          </li>
+          <li><button type="submit">Genera tu meme</button></li>
+          <li><button type="submit" formaction="{{ url_for('guardar_meme') }}" formmethod="POST">Guardar meme como PNG</button></li>
+        </ul>
+      </form>
+    </div>
+    <div class="meme-block" id="memeBlock">
+      <div class="meme-canvas">
+        <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
+        <p class="text_top" style="color: {{ selected_color }}; top: {{ text_top_y }}%;">{{ text_top }}</p>
+        <p class="text_bottom" style="color: {{ selected_color }}; bottom: {{ text_bottom_y }}%;">{{ text_bottom }}</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

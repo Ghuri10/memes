@@ -1,0 +1,20 @@
+GENERADOR DE MEMES - INSTRUCCIONES (Windows)
+
+1. Extraiga esta carpeta del ZIP.
+2. Abra PowerShell dentro de la carpeta meme-generator-esp-main.
+3. Cree un entorno virtual (solo la primera vez):
+   py -m venv .venv
+4. Active el entorno:
+   .\.venv\Scripts\Activate.ps1
+   Si PowerShell bloquea la activación, ejecute primero:
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+   y vuelva a activar el entorno.
+5. Instale Flask:
+   python -m pip install -r requirements.txt
+6. Inicie la aplicación:
+   python main.py
+7. Abra en el navegador:
+   http://127.0.0.1:5000
+
+Si el comando py no funciona, pruebe con python en los pasos 3 y 5.
+Mantenga abiertas la terminal y la aplicación mientras usa la página.
